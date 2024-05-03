@@ -1,5 +1,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Xml.Linq;
 
 namespace WebDriver_Task_2
 {
@@ -59,12 +60,12 @@ namespace WebDriver_Task_2
             IWebElement divCodeTextElement = driver.FindElement(By.CssSelector("div.source.bash"));
             string textCodeElement = divCodeTextElement.Text;
 
-            string expectedText = "git config --global user.name  \"New Sheriff in Town\"\r\n" +
-                "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\r\n" +
-                "git push origin master --force\r\n";
+            string expectedText = "git config --global user.name  \"New Sheriff in Town\"\r\n" +
+                "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\r\n" +
+                "git push origin master --force\r\n";
 
-            Assert.That(textCodeElement, Is.EqualTo(expectedText), "The text content of the <div> element does not match the expected text.");
             Assert.That(checkTitleElement, Is.EqualTo(expectedTitle), "The created title does not match the expected title.");
+            Assert.That(textCodeElement.Trim(), Is.EqualTo(expectedText.Trim()), "The text content of the <div> element does not match the expected text.");
         }
 
         [TearDown]
